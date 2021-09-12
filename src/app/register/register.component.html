@@ -1,0 +1,46 @@
+ <form [formGroup]="registerForm" (ngSubmit)="register()" > <!-- #registerForm="ngForm" -->
+
+  <h2 class="text-center text-primary">Sign Up</h2>
+
+  <hr>
+
+
+
+  <div class="form-group">
+    <input type="text"
+    [ngClass]="{'is-invalid': registerForm.get('Email').errors && registerForm.get('Email').touched }"
+    class="form-control"  formControlName="Email" placeholder="Email">    <!--required   [(ngModel)]="model.username" -->
+
+    <div class="invalid-feedback">please choose username</div>
+  </div>
+
+
+
+  <div class="form-group">
+   <input type="password"
+   [ngClass]="{'is-invalid': registerForm.get('password').errors && registerForm.get('password').touched }"
+   class="form-control"  formControlName="password"  placeholder="Password">    <!--required   [(ngModel)]="model.username" -->
+   <div class="invalid-feedback" *ngIf="registerForm.get('password').hasError('required') && registerForm.get('password').touched">password is required</div>
+   <!-- <div class="invalid-feedback" *ngIf="registerForm.get('password').hasError('minlength') && registerForm.get('password').touched">password must be at least 4 characters</div>
+   <div class="invalid-feedback" *ngIf="registerForm.get('password').hasError('maxlength') && registerForm.get('password').touched">password must be at most 8 characters</div> -->
+
+  </div>
+
+  <div class="form-group">
+    <input type="password"
+    [ngClass]="{'is-invalid': registerForm.get('confirmPassword').errors && registerForm.get('confirmPassword').touched
+    || registerForm.get('password').touched && registerForm.hasError('mismatch') }"
+    class="form-control"  formControlName="confirmPassword"  placeholder="confirmPassword">    <!--required   [(ngModel)]="model.username" -->
+    <div class="invalid-feedback" *ngIf="registerForm.get('confirmPassword').hasError('required') && registerForm.get('confirmPassword').touched">password is required</div>
+    <div class="invalid-feedback" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword').touched">password must match</div>
+
+   </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success" [disabled]="!registerForm.valid" type="submit">Register</button>
+    <button class="btn btn-default" type="button" (click)="cancel()">Cancel</button>
+  </div>
+</form>
+<!--
+<p>Form Value :{{registerForm.value | json}}</p>
+<p>Form status :{{registerForm.status | json}}</p> -->
